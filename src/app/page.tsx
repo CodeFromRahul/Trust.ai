@@ -1,0 +1,162 @@
+"use client";
+
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import Lightning from "@/components/Lightning";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Shield, Zap, Lock, BarChart3, Cloud, Code, ArrowRight, LayoutDashboard } from "lucide-react";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+// import LightPillar from "@/components/LightPillar";
+
+export default function Home() {
+  const { data: session } = useSession();
+
+  return (
+    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
+      <Navbar />
+      
+      <main>
+        {/* Hero Section */}
+        <section className="relative pt-32 pb-20 overflow-hidden min-h-screen">
+          <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 1 }}>
+{/* <div style={{ width: '100%', height: '600px', position: 'relative' }}> */}
+  <Lightning
+    hue={174}
+    xOffset={0.2}
+    speed={1}
+    intensity={1}
+    size={1}
+  />
+{/* </div> */}
+          </div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent z-0" />
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-white mb-8 shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all">
+              <Zap className="w-3 h-3 text-yellow-400 animate-pulse" />
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-semibold">v1.0 is now live</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 drop-shadow-2xl" style={{
+              background: 'linear-gradient(to bottom, #ffffff 0%, #e0e0e0 50%, #a0a0a0 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              textShadow: '0 0 80px rgba(138, 43, 226, 0.5)'
+            }}>
+              Real-time AI Security & <br /> Compliance for SaaS
+            </h1>
+            <p className="text-lg md:text-xl text-zinc-300 max-w-2xl mx-auto mb-10 backdrop-blur-sm drop-shadow-lg font-medium">
+              Detect anomalies, automate SOC2 readiness, and model threat behaviors with a single API call. Built for modern engineering teams.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              {session ? (
+                <Link href="/app/dashboard">
+                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12 px-8 group shadow-lg shadow-blue-500/50 hover:shadow-blue-500/70 hover:scale-105 transition-all backdrop-blur-sm border border-white/20">
+                    <LayoutDashboard className="w-4 h-4 mr-2" />
+                    Go to Dashboard
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              ) : (
+                <Link href="/signup">
+                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12 px-8 shadow-lg shadow-blue-500/50 hover:shadow-blue-500/70 hover:scale-105 transition-all backdrop-blur-sm border border-white/20 font-semibold">
+                    Get Started for Free
+                  </Button>
+                </Link>
+              )}
+              <Link href="/docs">
+                <Button size="lg" variant="outline" className="border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 h-12 px-8 hover:scale-105 transition-all shadow-lg hover:shadow-white/20 font-semibold">
+                  View Documentation
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Grid */}
+        {/* <div>
+          
+        </div> */}
+        <section id="features" className="py-24 border-t border-white/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4">Powerful Security Features</h2>
+              <p className="text-zinc-500">Everything you need to secure your SaaS platform.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Real-time Anomaly Detection",
+                  desc: "Our AI engine identifies suspicious patterns and unusual user behaviors as they happen.",
+                  icon: Zap,
+                },
+                {
+                  title: "Automated Compliance",
+                  desc: "Continuous monitoring for SOC2, HIPAA, and GDPR with automated gap analysis.",
+                  icon: Lock,
+                },
+                {
+                  title: "Behavioral Modeling",
+                  desc: "Understand normal user behavior and detect insider threats before they cause damage.",
+                  icon: BarChart3,
+                },
+                {
+                  title: "Low-code Integration",
+                  desc: "Connect your entire stack with our easy-to-use SDKs and REST endpoints.",
+                  icon: Code,
+                },
+                {
+                  title: "Cloud Native",
+                  desc: "Seamlessly integrates with AWS CloudWatch, CloudTrail, and native application logs.",
+                  icon: Cloud,
+                },
+                {
+                  title: "Actionable Insights",
+                  desc: "Don't just see threats—get clear explanations and guided resolution steps.",
+                  icon: Shield,
+                }
+              ].map((f, i) => (
+                <Card key={i} className="bg-white/5 border-white/10 hover:border-blue-500/50 transition-colors group">
+                  <CardContent className="pt-6">
+                    <f.icon className="w-10 h-10 text-blue-500 mb-4 group-hover:scale-110 transition-transform" />
+                    <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
+                    <p className="text-sm text-zinc-500 leading-relaxed">{f.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-24 border-t border-white/5 bg-[radial-gradient(circle_at_bottom,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to secure your startup?</h2>
+            <p className="text-zinc-400 mb-10">
+              Join 100+ startups already using TrustLens to protect their infrastructure.
+            </p>
+            {session ? (
+              <Link href="/app/billing">
+                <Button size="lg" className="bg-white text-black hover:bg-zinc-200 group">
+                  <LayoutDashboard className="w-4 h-4 mr-2" />
+                  View Billing
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            ) : (
+              <Link href="/signup">
+                <Button size="lg" className="bg-white text-black hover:bg-zinc-200 group">
+                  Start your 14-day free trial
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            )}
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
